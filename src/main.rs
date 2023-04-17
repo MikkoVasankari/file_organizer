@@ -1,9 +1,22 @@
 use std::{ fs, io };
 use std::fs::DirBuilder;
 use std::ffi::OsStr;
-use std::path::{ Path };
+use std::path::{ Path , PathBuf};
+use clap::Parser;
+
+
+#[derive(Parser , Debug)]
+struct Cli {
+    /// The path to the file to read
+    dir: PathBuf,
+}
+
 
 fn main() -> io::Result<()> {
+
+    let args = Cli::parse();
+    println!("{:#?}", args);
+
     // Creating new Directory
     let path = "pictures";
     DirBuilder::new().recursive(true).create(path).unwrap();
@@ -13,7 +26,7 @@ fn main() -> io::Result<()> {
 
     // Going through current Directory
     let entries = fs
-        ::read_dir(".")?
+        ::read_dir(args.dir)?
         .map(|res| res.map(|e| e.path()))
         .collect::<Result<Vec<_>, io::Error>>()?;
 
