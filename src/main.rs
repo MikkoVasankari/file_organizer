@@ -33,6 +33,7 @@ fn main() -> io::Result<()> {
     for i in &entries {
         // Taking wanted file extension
         let os_str_png = OsStr::new("png");
+        let os_str_jpg = OsStr::new("jpg");
 
         let os_str_txt = OsStr::new("txt");
 
@@ -41,14 +42,34 @@ fn main() -> io::Result<()> {
         let location_path_txt = Path::new("texts/").join(i);
 
         if i.extension() == Some(os_str_png) {
-            fs::rename(i, location_path_pic)?;
-        }
-        
-        if i.extension() == Some(os_str_txt) {
-            fs::rename(i, location_path_txt)?;
+           fs::rename(i, &location_path_pic)?;
         }
 
-    }
+
+        if i.extension() == Some(os_str_jpg) {
+            fs::rename(i, &location_path_pic)?;
+        }
+        
+
+        if i.extension() == Some(os_str_txt) {
+            fs::rename(i, &location_path_txt)?;
+        }
+        
+
+        // figurre out match in rust
+        //rintln!("{:#?}", i.extension());
+        //match i.extension() {
+
+
+            //None | Some(_) => todo!(),
+
+            //Some(_) => println!("jou teksti!"),
+
+            //None => println!("this is a directory"),
+            
+            //}
+
+        }   
 
     Ok(())
 }
