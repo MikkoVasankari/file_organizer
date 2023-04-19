@@ -1,10 +1,9 @@
 ## file_organizer
-file organizer to sort out files in directories
+file organizer to sort out files in given directory/folder
 
-toimii tällä hetkellä ```cargo run .```
+Now works with ```cargo run your/directory/path/here```
 
 
 ### TODO
- - Lisää file extensioneitä
- - Tarkista file extension järkevämmin 
- - 
+ - Add more working file extension
+ - Check file extension more efficiently (maybe match?) 
