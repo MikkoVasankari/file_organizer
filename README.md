@@ -1,9 +1,10 @@
 ## file_organizer
-file organizer to sort out files in given directory/folder
+File organizer to sort out files in given directory/folder.
+Currently organizes .txt / .png and .jpg files to appropriate directory to them.
 
 Should work with ```cargo run your/directory/path/here```
 
 
 ### TODO
- - Add more working file extension
- - Check file extension more efficiently (maybe match?) 
+    - Check file extension more efficiently (maybe match?) 
+    - Add more working file extension
