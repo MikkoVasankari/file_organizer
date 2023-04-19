@@ -1,7 +1,7 @@
 ## file_organizer
 file organizer to sort out files in given directory/folder
 
-Now works with ```cargo run your/directory/path/here```
+Should work with ```cargo run your/directory/path/here```
 
 
 ### TODO
