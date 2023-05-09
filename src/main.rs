@@ -70,7 +70,7 @@ fn main() -> io::Result<()> {
                 path_pics_os_string.clear();
                 path_pics_os_string.push(path_pics_os_string_original.clone());
                 println!(
-                    "Files was organized to directory {:?}",
+                    "File was organized to directory {:?}",
                     path_pics_os_string,
                 );
             }
@@ -83,7 +83,7 @@ fn main() -> io::Result<()> {
                 path_txt_os_string.clear();
                 path_txt_os_string.push(path_txt_os_string_original.clone());
                 println!(
-                    "Files was organized to directory {:?}",
+                    "File was organized to directory {:?}",
                     path_txt_os_string,
                 );
             }
