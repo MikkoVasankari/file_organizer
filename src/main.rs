@@ -14,13 +14,15 @@ fn main() -> io::Result<()> {
     let args = Cli::parse();
 
     if args.dir.is_dir() == true {
+
+
         let vec_os_string: Vec<&OsStr> = vec![
             OsStr::new("png"),
             OsStr::new("jpg"),
             OsStr::new("txt")
         ];
 
-        // Going through given Directory
+        
         let entries = fs
             ::read_dir(&args.dir)?
             .map(|res| res.map(|e| e.path()))
@@ -30,10 +32,9 @@ fn main() -> io::Result<()> {
             let mut pathi_os_string = path.clone().into_os_string();
 
             pathi_os_string.push("/");
-
             pathi_os_string.push(ext);
-
             pathi_os_string.push("/");
+
 
             DirBuilder::new().recursive(true).create(pathi_os_string.clone()).unwrap();
 
@@ -49,7 +50,6 @@ fn main() -> io::Result<()> {
 
         for item in &entries {
             if let Some(x) = item.extension() {
-                // x on nyt file extension
 
                 if Some(x) == vec_os_string.get(0).copied() {
                     let path_os_string = create_new_directory(args.dir.clone(), x);
@@ -65,7 +65,6 @@ fn main() -> io::Result<()> {
                     let path_os_string = create_new_directory(args.dir.clone(), x);
                     create_new_files(path_os_string, item);
                 }
-
             }
         }
     } else {

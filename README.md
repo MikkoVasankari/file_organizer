@@ -7,6 +7,4 @@ Should work with ```cargo run /your/directory/path/here```
 
 
 ### TODO
-    - Check if directory already exits and add files there.
-    - Check file extension more efficiently.
     - Add more working file extensions.
