@@ -1,7 +1,7 @@
-use std::{ fs, io };
+use std::{ fs, io, vec };
 use std::fs::DirBuilder;
 use std::ffi::{ OsStr, OsString };
-use std::path::{ PathBuf };
+use std::path::PathBuf ;
 use clap::Parser;
 
 #[derive(Parser, Debug)]
@@ -15,14 +15,12 @@ fn main() -> io::Result<()> {
 
     if args.dir.is_dir() == true {
 
-
         let vec_os_string: Vec<&OsStr> = vec![
             OsStr::new("png"),
             OsStr::new("jpg"),
             OsStr::new("txt")
         ];
 
-        
         let entries = fs
             ::read_dir(&args.dir)?
             .map(|res| res.map(|e| e.path()))
@@ -34,7 +32,6 @@ fn main() -> io::Result<()> {
             pathi_os_string.push("/");
             pathi_os_string.push(ext);
             pathi_os_string.push("/");
-
 
             DirBuilder::new().recursive(true).create(pathi_os_string.clone()).unwrap();
 
@@ -50,20 +47,12 @@ fn main() -> io::Result<()> {
 
         for item in &entries {
             if let Some(x) = item.extension() {
+                for i in 0..vec_os_string.len() {
 
-                if Some(x) == vec_os_string.get(0).copied() {
-                    let path_os_string = create_new_directory(args.dir.clone(), x);
-                    create_new_files(path_os_string, item);
-                }
-
-                if Some(x) == vec_os_string.get(1).copied() {
-                    let path_os_string = create_new_directory(args.dir.clone(), x);
-                    create_new_files(path_os_string, item);
-                }
-
-                if Some(x) == vec_os_string.get(2).copied() {
-                    let path_os_string = create_new_directory(args.dir.clone(), x);
-                    create_new_files(path_os_string, item);
+                    if Some(x) == vec_os_string.get(i).copied() {
+                        let path_os_string = create_new_directory(args.dir.clone(), x);
+                        create_new_files(path_os_string, item);
+                    }
                 }
             }
         }
