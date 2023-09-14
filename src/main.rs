@@ -36,7 +36,7 @@ fn main() -> io::Result<()> {
         let vec_os_string: Vec<&OsStr> = vec![
             OsStr::new("png"),
             OsStr::new("jpg"),
-            OsStr::new("txt")
+            OsStr::new("txt"),
         ];
 
         let entries = fs
