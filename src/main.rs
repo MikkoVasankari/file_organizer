@@ -11,7 +11,20 @@ struct Cli {
 }
 
 fn main() -> io::Result<()> {
+    
     let args = Cli::parse();
+    
+    let vec_os_string: Vec<&OsStr> = vec![
+        OsStr::new("png"),
+        OsStr::new("jpg"),
+        OsStr::new("txt"),
+    ];
+
+    let entries = fs
+            ::read_dir(&args.dir)?
+            .map(|res| res.map(|e| e.path()))
+            .collect::<Result<Vec<_>, io::Error>>()?;
+
 
     fn create_new_directory(path: PathBuf, ext: &OsStr) -> OsString {
         let mut pathi_os_string = path.clone().into_os_string();
@@ -33,17 +46,7 @@ fn main() -> io::Result<()> {
     }
 
     if args.dir.is_dir() == true {
-        let vec_os_string: Vec<&OsStr> = vec![
-            OsStr::new("png"),
-            OsStr::new("jpg"),
-            OsStr::new("txt"),
-        ];
-
-        let entries = fs
-            ::read_dir(&args.dir)?
-            .map(|res| res.map(|e| e.path()))
-            .collect::<Result<Vec<_>, io::Error>>()?;
-
+      
         for item in &entries {
             if let Some(x) = item.extension() {
                 for i in 0..vec_os_string.len() {
@@ -54,6 +57,7 @@ fn main() -> io::Result<()> {
                 }
             }
         }
+
     } else {
         println!("Path you gave is not a directory");
     }
