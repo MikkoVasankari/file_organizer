@@ -1,9 +1,15 @@
 ## file_organizer
 File organizer to sort out files in given directory/folder.
 
-Currently organizes .txt / .png and .jpg files to appropriate directory to them.
+Currently organizes files such as:
+- png
+- jpg
+- txt
+- mp4
+- mp3
+- webm
 
-Should work with ```cargo run /your/directory/path/here```
 
-### TODO
- * [ ] Add more working file extensions.
+Works with ```cargo run /your/directory/path/here```
+
+After running the application it tells you where all your files were organized to. 
