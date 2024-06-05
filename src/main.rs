@@ -1,4 +1,4 @@
-use std::{ fs, io, vec };
+use std::{ fs, io };
 use std::fs::DirBuilder;
 use std::ffi::{ OsStr, OsString };
 use std::path::PathBuf;
@@ -24,7 +24,6 @@ fn main() -> io::Result<()> {
             ::read_dir(&args.dir)?
             .map(|res| res.map(|e| e.path()))
             .collect::<Result<Vec<_>, io::Error>>()?;
-
 
     fn create_new_directory(path: PathBuf, ext: &OsStr) -> OsString {
         let mut pathi_os_string = path.clone().into_os_string();
