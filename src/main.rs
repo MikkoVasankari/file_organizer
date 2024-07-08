@@ -6,7 +6,6 @@ use std::{fs, io};
 
 #[derive(Parser, Debug)]
 struct Cli {
-    /// The path to the directory to read from cli
     dir: PathBuf,
 }
 
@@ -19,29 +18,41 @@ fn main() -> io::Result<()> {
         OsStr::new("txt"),
         OsStr::new("mp4"),
         OsStr::new("mp3"),
-        OsStr::new("webm")
+        OsStr::new("webm"),
     ];
 
     let entries = fs::read_dir(&args.dir)?
         .map(|res| res.map(|e| e.path()))
         .collect::<Result<Vec<_>, io::Error>>()?;
 
-    if args.dir.is_dir() == true {
-        for item in &entries {
-            if let Some(x) = item.extension() {
-                for i in 0..vec_os_string.len() {
-                    if Some(x) == vec_os_string.get(i).copied() {
-                        let path_os_string = create_new_directory(args.dir.clone(), x);
-                        create_new_files(path_os_string, item);
-                    }
-                }
-            }
+    for item in &entries {
+        if let Some(x) = item.extension() {
+            create_files_in_dir(
+                args.dir.clone(),
+                item,
+                x,
+                vec_os_string.len(),
+                vec_os_string.clone(),
+            )
         }
-    } else {
-        println!("Path you gave is not a directory");
     }
 
     Ok(())
+}
+
+fn create_files_in_dir(
+    path: PathBuf,
+    item: &PathBuf,
+    x: &OsStr,
+    item_list_len: usize,
+    file_exts: Vec<&OsStr>,
+) {
+    for i in 0..item_list_len {
+        if Some(x) == file_exts.get(i).copied() {
+            let path_os_string = create_new_directory(path.clone(), x);
+            create_new_files(path_os_string, item);
+        }
+    }
 }
 
 fn create_new_directory(path: PathBuf, ext: &OsStr) -> OsString {
@@ -65,3 +76,4 @@ fn create_new_files(mut path: OsString, item: &PathBuf) {
     println!("File was organized to directory {:?}", path);
     path.clear();
 }
+
