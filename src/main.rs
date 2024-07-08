@@ -26,11 +26,11 @@ fn main() -> io::Result<()> {
         .collect::<Result<Vec<_>, io::Error>>()?;
 
     for item in &entries {
-        if let Some(x) = item.extension() {
+        if let Some(ext) = item.extension() {
             create_files_in_dir(
                 args.dir.clone(),
                 item,
-                x,
+                ext,
                 vec_os_string.len(),
                 vec_os_string.clone(),
             )
@@ -43,13 +43,13 @@ fn main() -> io::Result<()> {
 fn create_files_in_dir(
     path: PathBuf,
     item: &PathBuf,
-    x: &OsStr,
+    ext: &OsStr,
     item_list_len: usize,
     file_exts: Vec<&OsStr>,
 ) {
     for i in 0..item_list_len {
-        if Some(x) == file_exts.get(i).copied() {
-            let path_os_string = create_new_directory(path.clone(), x);
+        if Some(ext) == file_exts.get(i).copied() {
+            let path_os_string = create_new_directory(path.clone(), ext);
             create_new_files(path_os_string, item);
         }
     }
@@ -73,7 +73,6 @@ fn create_new_directory(path: PathBuf, ext: &OsStr) -> OsString {
 fn create_new_files(mut path: OsString, item: &PathBuf) {
     path.push(item.file_name().unwrap());
     fs::rename(item, path.clone()).expect("creating a file failed");
-    println!("File was organized to directory {:?}", path);
+    println!("File was organized to {:?}", path);
     path.clear();
 }
-
