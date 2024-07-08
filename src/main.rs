@@ -25,11 +25,11 @@ fn main() -> io::Result<()> {
         .map(|res| res.map(|e| e.path()))
         .collect::<Result<Vec<_>, io::Error>>()?;
 
-    for item in &entries {
-        if let Some(ext) = item.extension() {
+    for entry in &entries {
+        if let Some(ext) = entry.extension() {
             create_files_in_dir(
                 args.dir.clone(),
-                item,
+                entry,
                 ext,
                 vec_os_string.len(),
                 vec_os_string.clone(),
@@ -42,7 +42,7 @@ fn main() -> io::Result<()> {
 
 fn create_files_in_dir(
     path: PathBuf,
-    item: &PathBuf,
+    entry: &PathBuf,
     ext: &OsStr,
     item_list_len: usize,
     file_exts: Vec<&OsStr>,
@@ -50,7 +50,7 @@ fn create_files_in_dir(
     for i in 0..item_list_len {
         if Some(ext) == file_exts.get(i).copied() {
             let path_os_string = create_new_directory(path.clone(), ext);
-            create_new_files(path_os_string, item);
+            create_new_files(path_os_string, entry);
         }
     }
 }
